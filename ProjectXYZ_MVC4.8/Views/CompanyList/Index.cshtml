@@ -1,0 +1,39 @@
+﻿@model IEnumerable<ProjectXYZ_MVC4._8.Models.Company>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Company List</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Company Name</th>
+        <th>Email</th>
+        <th>Phone Number</th>
+        <th>Approval Status</th>
+        <th>Actions</th>
+    </tr>
+
+    @foreach (var company in Model)
+    {
+        <tr>
+            <td>@company.ID</td>
+            <td>@company.CompanyName</td>
+            <td>@company.CompanyEmail</td>
+            <td>@company.CompanyPhoneNumber</td>
+            <td>@company.ApprovalStatus</td>
+            <td>
+                @Html.ActionLink("Details", "Details", new { id = company.ID }) |
+                @Html.ActionLink("Edit", "Edit", new { id = company.ID }) |
+                @Html.ActionLink("Delete", "Delete", new { id = company.ID })
+            </td>
+        </tr>
+    }
+</table>
+
