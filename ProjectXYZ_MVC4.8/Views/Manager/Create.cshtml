@@ -1,0 +1,34 @@
+﻿
+@model ProjectXYZ_MVC4._8.Models.Manager
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create Manager</h2>
+
+@using (Html.BeginForm("Create", "Manager", FormMethod.Post))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ManagerName)
+        @Html.TextBoxFor(model => model.ManagerName, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ManagerName)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ManagerEmail)
+        @Html.TextBoxFor(model => model.ManagerEmail, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ManagerEmail)
+    </div>
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.ManagerPhone)
+        @Html.TextBoxFor(model => model.ManagerPhone, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.ManagerPhone)
+    </div>
+
+    <button type="submit" class="btn btn-primary">Create</button>
+}
+

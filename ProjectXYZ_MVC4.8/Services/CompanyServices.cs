@@ -2,6 +2,7 @@
 using ProjectXYZ_MVC4._8.Models;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Text;
 using System.Web;
@@ -63,24 +64,40 @@ namespace ProjectXYZ_MVC4._8.Services
         }
 
 
-        public Company CreateCompany(Company newCompany)
+        public Company CreateCompany(Company newCompany, HttpPostedFileBase companyPhoto)
         {
-            var company = new Company
+            try
             {
-                CompanyName = newCompany.CompanyName,
-                CompanyEmail = newCompany.CompanyEmail,
-                CompanyPhoneNumber = newCompany.CompanyPhoneNumber,
-                CompanyPhoto = newCompany.CompanyPhoto,
-                ApprovalStatus = newCompany.ApprovalStatus,
-            };
+                var company = new Company
+                {
+                    CompanyName = newCompany.CompanyName,
+                    CompanyEmail = newCompany.CompanyEmail,
+                    CompanyPhoneNumber = newCompany.CompanyPhoneNumber,
+                    ApprovalStatus = "Pending",
+                };
 
-            var createdCompany = _companyRepository.Create(company);
-            if (createdCompany is null)
-            {
-                return null; // Company not created
+                // Handle file upload
+                if (companyPhoto != null && companyPhoto.ContentLength > 0)
+                {
+                    using (var binaryReader = new BinaryReader(companyPhoto.InputStream))
+                    {
+                        company.CompanyPhoto = binaryReader.ReadBytes(companyPhoto.ContentLength);
+                    }
+                }
+
+                var createdCompany = _companyRepository.Create(company);
+                if (createdCompany is null)
+                {
+                    return null; // Company not created
+                }
+
+                return createdCompany; // Company created
             }
-
-            return createdCompany; // Company created
+            catch (Exception ex)
+            {
+                // Log or handle the exception
+                return null; // Return null or throw a custom exception based on your error-handling strategy
+            }
         }
 
         public int UpdateCompany(Company updateCompany)

@@ -2,6 +2,7 @@
 using ProjectXYZ_MVC4._8.Services;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Net;
 using System.Web;
@@ -41,19 +42,42 @@ namespace ProjectXYZ_MVC4._8.Controllers
             return View();
         }
 
-        // POST: Roles/Create
+        // POST: Company/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+  
         public ActionResult Create(Company company)
         {
             if (ModelState.IsValid)
             {
-                _companyServices.CreateCompany(company);
-                return RedirectToAction("Index");
+                try
+                {
+                    // Handle file upload
+                    HttpPostedFileBase companyPhoto = Request.Files["CompanyPhoto"];
+
+                    if (companyPhoto != null && companyPhoto.ContentLength > 0)
+                    {
+                        using (var binaryReader = new BinaryReader(companyPhoto.InputStream))
+                        {
+                            company.CompanyPhoto = binaryReader.ReadBytes(companyPhoto.ContentLength);
+                        }
+                    }
+
+                    // Set ApprovalStatus here if needed
+
+                    _companyServices.CreateCompany(company, companyPhoto);
+                    return RedirectToAction("Index");
+                }
+                catch (Exception ex)
+                {
+                    // Log or handle the exception
+                    ModelState.AddModelError(string.Empty, "An error occurred while processing your request.");
+                }
             }
 
             return View(company);
         }
+
 
         // GET: Company/Edit/5
         public ActionResult Edit(int id)

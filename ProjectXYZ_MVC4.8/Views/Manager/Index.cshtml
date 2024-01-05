@@ -1,0 +1,46 @@
+﻿@model List<ProjectXYZ_MVC4._8.Models.Manager>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Manager List</h2>
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+
+<table class="table">
+    <tr>
+        <th>ID</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Phone</th>
+    </tr>
+    @if (Model != null)
+    {
+        foreach (var manager in Model)
+        {
+            <tr>
+            <tr>
+               <tr>
+                   <td>@manager.ID</td>
+                   <td>@manager.ManagerName</td>
+                   <td>@manager.ManagerEmail</td>
+                   <td>@manager.ManagerPhone</td>
+               </tr>
+                <td>
+                    @Html.ActionLink("Details", "Details", new { id = manager.ID }) |
+                    @Html.ActionLink("Edit", "Edit", new { id = manager.ID }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = manager.ID })
+                </td>
+            </tr>
+            </tr>
+        }
+    }
+    else
+    {
+        <p>No manager available.</p>
+    }
+
+</table>
+

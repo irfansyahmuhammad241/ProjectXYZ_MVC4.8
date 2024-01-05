@@ -1,0 +1,25 @@
+﻿@model ProjectXYZ_MVC4._8.Models.Manager
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Manager Details</h2>
+
+<div>
+    <h4>Manager ID: @Model.ID</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>@Html.DisplayNameFor(model => model.ManagerName)</dt>
+        <dd>@Html.DisplayFor(model => model.ManagerName)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.ManagerEmail)</dt>
+        <dd>@Html.DisplayFor(model => model.ManagerEmail)</dd>
+
+        <dt>@Html.DisplayNameFor(model => model.ManagerPhone)</dt>
+        <dd>@Html.DisplayFor(model => model.ManagerPhone)</dd>
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Back to List", "Index")
+</p>

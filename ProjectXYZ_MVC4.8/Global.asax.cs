@@ -1,3 +1,4 @@
+using ProjectXYZ_MVC4._8.App_Start;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -18,6 +19,8 @@ namespace ProjectXYZ_MVC4._8
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
             BundleConfig.RegisterBundles(BundleTable.Bundles);
+
+            UnityConfig.RegisterComponents();
         }
     }
 }

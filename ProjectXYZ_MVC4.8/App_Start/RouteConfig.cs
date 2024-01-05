@@ -18,6 +18,18 @@ namespace ProjectXYZ_MVC4._8
                 url: "{controller}/{action}/{id}",
                 defaults: new { controller = "Home", action = "Index", id = UrlParameter.Optional }
             );
+
+            routes.MapRoute(
+                name: "Company",
+                url: "{controller}/{action}/{id}",
+                defaults: new { controller = "Company", action = "Index", id = UrlParameter.Optional }
+            );
+
+            routes.MapRoute(
+               name: "Manager",
+               url: "{controller}/{action}/{id}",
+               defaults: new { controller = "Manager", action = "Index", id = UrlParameter.Optional }
+           );
         }
     }
 }
